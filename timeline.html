@@ -1,0 +1,113 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertical Timeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Scrollable container */
+        .timeline-container {
+            width: 400px; /* Adjust width */
+            height: 90vh;
+            overflow-y: auto; /* Enable vertical scrolling */
+            overflow-x: auto; /* Enable vertical scrolling */
+            border: 2px solid #444;
+            border-radius: 8px;
+            background: #1e1e1e;
+            position: relative;
+        }
+
+        /* Canvas for drawing timeline */
+        canvas {
+            background: transparent;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="timeline-container">
+        <canvas id="timelineCanvas"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("timelineCanvas");
+        const ctx = canvas.getContext("2d");
+
+        const events = [
+            { date: "Jan 1", y: 100, text: "New Year" },
+            { date: "Feb 15", y: 250, text: "Valentine's" },
+            { date: "Mar 10", y: 400, text: "Holi Fesasdfasdfasdfasdfdasfasdfasdffdasafsdfasdfsatival" },
+            { date: "Apr 5", y: 550, text: "Easter Sunday" },
+            { date: "May 20", y: 700, text: "Summer Begins" },
+            { date: "Jun 15", y: 850, text: "Father's Day" },
+            { date: "aug 5", y: 1000, text: "Teacher's Day" },
+            { date: "dec 5", y: 1150, text: "Teacher's Day" },
+            { date: "sep 5", y: 1300, text: "Teacher's Day" },
+            { date: "ads 5", y: 1450, text: "Teacher's Day" },
+            { date: "ade 5", y: 1600, text: "Teacher's Day" },
+            { date: "ape 5", y: 1750, text: "Teacher's Day" }
+        ];
+        // Set canvas size (larger height for scrolling)
+        canvas.width = 1000;
+        canvas.height = events.length * 155 ; // Increased height for more events
+
+        
+        function drawTimeline() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+
+    // Draw vertical timeline line
+    ctx.strokeStyle = "#888";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(200, 50); // Start point
+    ctx.lineTo(200, canvas.height - 50); // End point
+    ctx.stroke();
+
+    // Draw events on the timeline
+    ctx.font = "16px Arial";
+
+    events.forEach(event => {
+        // Draw event circles
+        ctx.fillStyle = "#ffcc00"; // Circle color
+        ctx.beginPath();
+        ctx.arc(200, event.y, 10, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw date on the left side
+        ctx.fillStyle = "#ffffff";
+        ctx.textAlign = "right"; // Align to right
+        ctx.fillText(event.date, 180, event.y + 5); // Date positioned on left
+
+        // Draw event text on the right side
+        ctx.textAlign = "left"; // Align to left
+        ctx.fillText(event.text, 220, event.y + 5); // Event positioned on right
+    });
+}
+
+
+
+
+        drawTimeline();
+    </script>
+
+</body>
+</html>
